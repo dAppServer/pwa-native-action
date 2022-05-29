@@ -37,24 +37,13 @@ runs:
       shell: bash
     # Building step
     - name: Turn Source repo into Wails Application
-      if: runner.os != 'Windows'
       shell: bash
       run: |
         cd ..
         wails generate template -frontend ${{ inputs.pwa-build }} -name ${{inputs.build-name}}
         wails init -t ${{inputs.build-name}} -g -d build-native -n ${{inputs.build-name}}
-        rm -rf ${{ github.workspace }} && mkdir -p ${{ github.workspace }}
-        mv ./build-native/* ${{ github.workspace }}/
-        cd ${{ github.workspace }}
-    - name: Turn Source repo into Wails Application
-      if: runner.os == 'Windows'
-      shell: bash
-      run: |
-        cd ..
-        wails generate template -frontend ${{ inputs.pwa-build }} -name ${{inputs.build-name}}
-        wails init -t ${{inputs.build-name}} -g -d build-native -n ${{inputs.build-name}}
-        rm -rf ${{ github.workspace }} && mkdir -p ${{ github.workspace }}
-        mv .\build-native\* ${{ github.workspace }}\
+        mv ${{ github.workspace }} ../workspace && mkdir -p ${{ github.workspace }}
+        mv build-native/* ${{ github.workspace }}
         cd ${{ github.workspace }}
     - name: Build
       uses: dAppServer/wails-build-action@main
