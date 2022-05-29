@@ -79,16 +79,18 @@ runs:
       run: sudo apt-get update && sudo apt-get install libgtk-3-0 libwebkit2gtk-4.0-dev gcc-aarch64-linux-gnu
       shell: bash
     # Building step
-    - run: |
+    - name: Turn Source repo into Wails Application
+      shell: bash
+      run: |
+        cd ..
         wails generate template -frontend ${{ github.workspace }} -name ${{inputs.build-name}}
-        mkdir -p ${{ github.workspace }}/build/native
-      shell: bash
-    - run: wails init -t ${{inputs.build-name}} -g -d build/native -n ${{inputs.build-name}}
-      shell: bash
+        wails init -t ${{inputs.build-name}} -g -d build-native -n ${{inputs.build-name}}
+        rm -rf ${{ github.workspace }}
+        mv ${{inputs.build-name}}/* ${{ github.workspace }}
+        cd ${{ github.workspace }}
     - name: Build
       uses: dAppServer/wails-build-action@v2
       with:
-        working-directory: ./build/native
         build-name: ${{inputs.build-name}}
         build-platform: linux/amd64
     
