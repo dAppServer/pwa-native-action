@@ -86,7 +86,7 @@ runs:
         wails generate template -frontend ${{ github.workspace }} -name ${{inputs.build-name}}
         wails init -t ${{inputs.build-name}} -g -d build-native -n ${{inputs.build-name}}
         rm -rf ${{ github.workspace }} && mkdir -p ${{ github.workspace }}
-        mv ${{inputs.build-name}}/* ${{ github.workspace }}
+        cd ${{inputs.build-name}} && mv * ${{ github.workspace }}/
         cd ${{ github.workspace }}
     - name: Build
       uses: dAppServer/wails-build-action@v2
