@@ -43,7 +43,7 @@ runs:
         wails generate template -frontend ${{ inputs.pwa-build }} -name ${{inputs.build-name}}
         wails init -t ${{inputs.build-name}} -g -d build-native -n ${{inputs.build-name}}
         rm -rf ${{ github.workspace }} && mkdir -p ${{ github.workspace }}
-        mv ./build-native/* ${{ github.workspace }}/
+        mv build-native ${{ github.workspace }}
         cd ${{ github.workspace }}
     - name: Build
       uses: dAppServer/wails-build-action@main
