@@ -1,0 +1,38 @@
+name: Desktop build
+permissions:
+  contents: write
+on:
+  repository_dispatch:
+    types: [ build ]
+  push:
+    branches:
+      - 'main'
+      - 'dev'
+      - 'v*'
+    tags:
+      - 'v*'
+    paths-ignore:
+      - '**.md'
+  pull_request:
+    branches:
+      - 'main'
+      - 'dev'
+      - 'v*'
+    paths-ignore:
+      - '**.md'
+
+jobs:
+  linux:
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout code
+      - uses: actions/checkout@v2
+        with:
+          submodules: recursive
+      - uses: dAppServer/pwa-native-action@main
+        with:
+          build-name: lethean
+          build-platform: linux/amd64
+
+
+
