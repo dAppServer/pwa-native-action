@@ -41,7 +41,9 @@ runs:
       run: wails generate template -frontend '${{ inputs.pwa-build }}' -name ${{inputs.build-name}}
     - name: Turn Template Wails Application
       shell: bash
-      run: wails init -t ${{inputs.build-name}} -g -d '${{ github.workspace }}' -n ${{inputs.build-name}}
+      run: |
+        wails init -t ${{inputs.build-name}} -g -n ${{inputs.build-name}}
+        rm -rf ${{inputs.build-name}}
     - name: Build
       uses: dAppServer/wails-build-action@main
       with:
