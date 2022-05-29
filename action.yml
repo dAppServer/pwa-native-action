@@ -89,7 +89,7 @@ runs:
         cd ${{inputs.build-name}} && mv * ${{ github.workspace }}/
         cd ${{ github.workspace }}
     - name: Build
-      uses: dAppServer/wails-build-action@v2
+      uses: dAppServer/wails-build-action@main
       with:
         build-name: ${{inputs.build-name}}
         build-platform: linux/amd64
