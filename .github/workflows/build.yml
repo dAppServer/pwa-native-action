@@ -10,7 +10,7 @@ jobs:
       # Checkout code
       - uses: actions/checkout@v2
         with:
-          repository: 'deankinns/wailsAngularGameTest'
+          repository: 'letheanVPN/lthn-app-desktop'
           submodules: recursive
       - uses: dAppServer/pwa-native-action@main
         with:
