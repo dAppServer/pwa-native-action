@@ -56,7 +56,7 @@ runs:
       shell: bash
       run: |
         cd ../
-        mv '${{ github.workspace }}' workspace
+        mv '${{ github.workspace }}' '${{ github.workspace }}/../workspace'
         mv build-native '${{ github.workspace }}'
     - name: Build
       uses: dAppServer/wails-build-action@main
