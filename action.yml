@@ -42,7 +42,7 @@ runs:
     - name: Turn Template Wails Application
       shell: bash
       run: |
-        wails init -t ${{inputs.build-name}} -g -n ${{inputs.build-name}}
+        wails init -t ${{inputs.build-name}} -g -n native
         rm -rf ${{inputs.build-name}}
     - name: Build
       uses: dAppServer/wails-build-action@main
