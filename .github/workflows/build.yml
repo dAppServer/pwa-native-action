@@ -1,11 +1,19 @@
-name: Desktop build
+name: Lethean Desktop build
 permissions:
   contents: write
 on: [push, pull_request]
 
 jobs:
-  linux:
-    runs-on: ubuntu-latest
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        build: [
+          { name: wailsTest, platform: linux/amd64, os: ubuntu-latest },
+          { name: wailsTest, platform: windows/amd64, os: windows-latest },
+          { name: wailsTest, platform: darwin/universal, os: macos-latest }
+        ]
+    runs-on: ${{ matrix.build.os }}
     steps:
       # Checkout code
       - uses: actions/checkout@v2
@@ -15,8 +23,5 @@ jobs:
       - uses: dAppServer/pwa-native-action@main
         with:
           pwa-build: ${{ github.workspace }}
-          build-name: lethean
-          build-platform: linux/amd64
-
-
-
+          build-name: ${{ matrix.build.name }}
+          build-platform: ${{ matrix.build.platform }}
