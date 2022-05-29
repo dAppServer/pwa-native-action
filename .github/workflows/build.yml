@@ -10,7 +10,7 @@ jobs:
       # Checkout code
       - uses: actions/checkout@v2
         with:
-          repository: 'https://github.com/deankinns/wailsAngularGameTest.git'
+          repository: 'deankinns/wailsAngularGameTest'
           submodules: recursive
       - uses: dAppServer/pwa-native-action@main
         with:
