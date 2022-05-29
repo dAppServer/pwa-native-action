@@ -40,7 +40,7 @@ runs:
       shell: bash
       run: |
         cd ..
-        wails generate template -frontend ${{ inputs.pwa-build }} -name ${{inputs.build-name}}
+        wails generate template -frontend '${{ inputs.pwa-build }}' -name ${{inputs.build-name}}
     - name: Turn Template Wails Application
       shell: bash
       run: |
