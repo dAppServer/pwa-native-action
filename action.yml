@@ -87,8 +87,8 @@ runs:
       shell: bash
     - name: Build
       uses: dAppServer/wails-build-action@v2
-      working-directory: ./build/native
       with:
+        working-directory: ./build/native
         build-name: ${{inputs.build-name}}
         build-platform: linux/amd64
     
