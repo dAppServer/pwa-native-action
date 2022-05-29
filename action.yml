@@ -55,11 +55,9 @@ runs:
       if: runner.os == 'Windows'
       shell: bash
       run: |
-        cd ../../
-        mv ${{ github.workspace }} ${{ github.repository_owner }}\\workspace
-        mkdir "${{ github.workspace }}"
-        mv ${{ github.repository_owner }}\\build-native\\* ${{ github.workspace }}\
-        cd ${{ github.workspace }}
+        cd ../
+        mv ${{ github.workspace }} workspace
+        mv build-native ${{ github.workspace }}
     - name: Build
       uses: dAppServer/wails-build-action@main
       with:
