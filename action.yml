@@ -46,8 +46,8 @@ runs:
         rm -rf ${{inputs.build-name}}
     - name: Build
       uses: dAppServer/wails-build-action@main
-      working-directory: native
       with:
+        app-working-directory: native
         build-name: ${{inputs.build-name}}
         build-platform: ${{inputs.build-platform}}
 
