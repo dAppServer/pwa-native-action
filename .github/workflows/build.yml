@@ -18,10 +18,11 @@ jobs:
       # Checkout code
       - uses: actions/checkout@v2
         with:
+          path: frontend
           repository: 'letheanVPN/lthn-app-desktop'
           submodules: recursive
       - uses: dAppServer/pwa-native-action@main
         with:
-          pwa-build: ${{ github.workspace }}
+          pwa-build: ${{ github.workspace }}/frontend
           build-name: ${{ matrix.build.name }}
           build-platform: ${{ matrix.build.platform }}

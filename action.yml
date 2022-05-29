@@ -36,28 +36,16 @@ runs:
       run: sudo apt-get update && sudo apt-get install libgtk-3-0 libwebkit2gtk-4.0-dev gcc-aarch64-linux-gnu
       shell: bash
     # Building step
-    - name: Turn Source repo into Wails Application
-      if: runner.os != 'Windows'
+    - name: Turn Source repo into Wails Template
       shell: bash
       run: |
         cd ..
         wails generate template -frontend ${{ inputs.pwa-build }} -name ${{inputs.build-name}}
-        wails init -t ${{inputs.build-name}} -g -d build-native -n ${{inputs.build-name}}
-    - name: Turn Source repo into Wails Application
-      if: runner.os != 'Windows'
+    - name: Turn Template Wails Application
       shell: bash
       run: |
         cd ..
-        mv ${{ github.workspace }} ../workspace && mkdir "${{ github.workspace }}"
-        mv build-native/* ${{ github.workspace }}
-        cd ${{ github.workspace }}
-    - name: Turn Source repo into Wails Application
-      if: runner.os == 'Windows'
-      shell: bash
-      run: |
-        cd ../
-        mv '${{ github.workspace }}' '${{ github.workspace }}/../workspace'
-        mv build-native '${{ github.workspace }}'
+        wails init -t ${{inputs.build-name}} -g -d '${{ github.workspace }}' -n ${{inputs.build-name}}
     - name: Build
       uses: dAppServer/wails-build-action@main
       with:
