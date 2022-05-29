@@ -26,3 +26,16 @@ jobs:
           pwa-build: frontend
           build-name: ${{ matrix.build.name }}
           build-platform: ${{ matrix.build.platform }}
+      # Upload build assets
+      - uses: actions/upload-artifact@v2
+        with:
+          name: Build ${{runner.os}} ${{ matrix.build.name }}
+          path: |
+            native/build/bin/
+            native\build\bin\*
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: |
+            native/build/bin/*
