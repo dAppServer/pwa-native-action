@@ -13,6 +13,7 @@ jobs:
           submodules: recursive
       - uses: dAppServer/pwa-native-action@main
         with:
+          pwa-build: ${{ github.workspace }}
           build-name: lethean
           build-platform: linux/amd64
 

@@ -2,9 +2,9 @@ name: "Wails Build Action"
 description: "Creates a wails binary"
 
 inputs:
-  build:
-    description: "Platform to build for"
-    required: false
+  pwa-build:
+    description: "Compiled static files"
+    required: true
     default: "true"
   build-name:
     description: "The name of the binary file"
@@ -13,22 +13,6 @@ inputs:
     description: "Platform to build for"
     required: false
     default: "darwin/universal"
-  wails-version:
-    description: "Wails version to use"
-    required: false
-    default: "latest"
-  wails-build-webview2:
-    description: "Webview2 installer method [download,embed,browser,error]"
-    required: false
-    default: "download"
-  go-version:
-    description: "Version of Go to use"
-    required: false
-    default: "1.17"
-  node-version:
-    description: "Node js version"
-    required: false
-    default: "16.x"
 
 runs:
   using: "composite"
@@ -37,38 +21,12 @@ runs:
     - name: Setup GoLang
       uses: actions/setup-go@v2
       with:
-        go-version: ${{inputs.go-version}}
-    - name: Setup Go Cache
-      uses: actions/cache@v3
-      with:
-        path: |
-          %LocalAppData%\go-build
-          ~\go\pkg\mod
-          ~/Library/Caches/go-build
-          ~/go/pkg/mod
-          ~/.cache/go-build
-          ~/go/pkg/mod
-        key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
-        restore-keys: |
-          ${{ runner.os }}-go-
+        go-version: 1.17
     # Setup and configure NodeJS
     - name: Setup NodeJS
       uses: actions/setup-node@v2
       with:
-        node-version: ${{inputs.node-version}}
-    - name: Get npm cache directory
-      id: npm-cache-dir
-      shell: bash
-      run: |
-        echo "::set-output name=dir::$(npm config get cache)"
-    - name: Setup NodeJS cache
-      uses: actions/cache@v3
-      id: npm-cache # use this to check for `cache-hit` ==> if: steps.npm-cache.outputs.cache-hit != 'true'
-      with:
-        path: ${{ steps.npm-cache-dir.outputs.dir }}
-        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-        restore-keys: |
-          ${{ runner.os }}-node-
+        node-version: 16
     # install wails
     - name: Install Wails
       if: inputs.build == 'true'
@@ -83,7 +41,7 @@ runs:
       shell: bash
       run: |
         cd ..
-        wails generate template -frontend ${{ github.workspace }} -name ${{inputs.build-name}}
+        wails generate template -frontend ${{ inputs.pwa-build }} -name ${{inputs.build-name}}
         wails init -t ${{inputs.build-name}} -g -d build-native -n ${{inputs.build-name}}
         rm -rf ${{ github.workspace }} && mkdir -p ${{ github.workspace }}
         mv ./build-native/* ${{ github.workspace }}/
@@ -93,4 +51,4 @@ runs:
       with:
         build-name: ${{inputs.build-name}}
         build-platform: linux/amd64
-    
+
