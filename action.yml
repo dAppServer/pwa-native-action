@@ -30,8 +30,6 @@ inputs:
     required: false
     default: "16.x"
 
-
-
 runs:
   using: "composite"
   steps:
@@ -71,8 +69,6 @@ runs:
         key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
         restore-keys: |
           ${{ runner.os }}-node-
-   
-      run: ${{inputs.deno-build}}
     # install wails
     - name: Install Wails
       if: inputs.build == 'true'
