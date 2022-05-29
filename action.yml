@@ -82,7 +82,7 @@ runs:
     - name: Build App
       run: |
         wails generate template -frontend ${{ github.workspace }} -name ${{inputs.build-name}}
-        mkdir -p ${{ github.workspace }}build/native
+        mkdir -p ${{ github.workspace }}/build/native
       shell: bash
     - name: Build App
       run: wails init -t ${{inputs.build-name}} -g -d build/native -n ${{inputs.build-name}}
