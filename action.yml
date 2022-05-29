@@ -1,5 +1,5 @@
-name: "Wails Build Action"
-description: "Creates a wails binary"
+name: "PWA Native Build Action"
+description: "Creates a Wails.io binary wrapping a PWA"
 
 inputs:
   pwa-build:
