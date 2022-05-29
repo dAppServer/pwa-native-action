@@ -29,7 +29,7 @@ runs:
         node-version: 16
     # install wails
     - name: Install Wails
-      run: go install github.com/wailsapp/wails/v2/cmd/wails@${{inputs.wails-version}}
+      run: go install github.com/wailsapp/wails/v2/cmd/wails@latest
       shell: bash
     - name: Install Linux Wails deps
       if: runner.os == 'Linux'
