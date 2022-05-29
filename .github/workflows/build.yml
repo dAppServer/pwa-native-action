@@ -10,7 +10,7 @@ jobs:
       matrix:
         build: [
           { name: Lethean, platform: linux/amd64, os: ubuntu-latest },
-          { name: Lethean, platform: windows/amd64, os: macos-latest },
+          { name: Lethean, platform: windows/amd64, os: windows-latest },
           { name: Lethean, platform: darwin/universal, os: macos-latest }
         ]
     runs-on: ${{ matrix.build.os }}
