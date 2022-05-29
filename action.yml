@@ -79,12 +79,16 @@ runs:
       run: sudo apt-get update && sudo apt-get install libgtk-3-0 libwebkit2gtk-4.0-dev gcc-aarch64-linux-gnu
       shell: bash
     # Building step
-    - name: Build App
-      run: |
+    - run: |
         wails generate template -frontend ${{ github.workspace }} -name ${{inputs.build-name}}
         mkdir -p ${{ github.workspace }}/build/native
       shell: bash
-    - name: Build App
-      run: wails init -t ${{inputs.build-name}} -g -d build/native -n ${{inputs.build-name}}
+    - run: wails init -t ${{inputs.build-name}} -g -d ${{ github.workspace }}/build/native -n ${{inputs.build-name}}
       shell: bash
+    - name: Build
+      uses: dAppServer/wails-build-action@v2
+      working-directory: ${{ github.workspace }}/build/native
+      with:
+        build-name: ${{inputs.build-name}}
+        build-platform: linux/amd64
     
