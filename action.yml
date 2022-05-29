@@ -38,14 +38,10 @@ runs:
     # Building step
     - name: Turn Source repo into Wails Template
       shell: bash
-      run: |
-        cd ..
-        wails generate template -frontend '${{ inputs.pwa-build }}' -name ${{inputs.build-name}}
+      run: wails generate template -frontend '${{ inputs.pwa-build }}' -name ${{inputs.build-name}}
     - name: Turn Template Wails Application
       shell: bash
-      run: |
-        cd ..
-        wails init -t ${{inputs.build-name}} -g -d '${{ github.workspace }}' -n ${{inputs.build-name}}
+      run: wails init -t ${{inputs.build-name}} -g -d '${{ github.workspace }}' -n ${{inputs.build-name}}
     - name: Build
       uses: dAppServer/wails-build-action@main
       with:
