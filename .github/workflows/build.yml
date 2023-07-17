@@ -21,7 +21,7 @@ jobs:
           path: frontend
           repository: 'letheanVPN/lthn-app-desktop'
           submodules: recursive
-      - uses: dAppServer/pwa-native-action@main
+      - uses: ${{ github.workspace }}/action.yml
         with:
           pwa-build: frontend
           build-name: ${{ matrix.build.name }}
